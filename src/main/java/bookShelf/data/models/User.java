@@ -10,11 +10,11 @@ import java.util.List;
 @Document
 @Data
 public class User {
-    private String UserName;
     @Id
+    private String id;
+    private String UserName;
     private String Email;
     private String Password;
-    private String Username;
     @DBRef
     private List<Book> books;
 }

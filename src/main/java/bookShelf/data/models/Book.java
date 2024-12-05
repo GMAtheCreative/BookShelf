@@ -7,10 +7,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 @Data
 public class Book {
+    @Id
+    private String id;
     private String title;
     private String author;
     private String description;
-    @Id
     private String isbn;
 
 }

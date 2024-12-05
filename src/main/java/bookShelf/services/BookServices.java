@@ -1,14 +1,14 @@
 package bookShelf.services;
 
-import bookShelf.dtos.requests.*;
-import bookShelf.dtos.responses.*;
+import bookShelf.dtos.requests.book.*;
+import bookShelf.dtos.responses.book.*;
 
 
 public interface BookServices {
 
     AddBookResponse addBook(AddBookRequest addBookRequest);
 
-    GetBookResponse getBookById(GetBookRequest getBookRequest);
+    GetBookResponse getBookByTitle(GetBookRequest getBookRequest);
 
     GetAllBooksResponse getAllBooks();
 
