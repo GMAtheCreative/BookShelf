@@ -6,6 +6,7 @@ import lombok.Data;
 public class UpdateBookResponse {
     private String title;
     private String author;
-    private String Description;
+    private String description;
     private String message;
 }
+

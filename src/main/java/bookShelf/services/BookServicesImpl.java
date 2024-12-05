@@ -7,25 +7,15 @@ import bookShelf.dtos.responses.book.*;
 import bookShelf.exception.bookException.BookNotFound;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class BookServicesImpl implements BookServices {
-
-    private final BookRepository bookRepository;
-    private final ModelMapper modelMapper;
-
-//    @Override
-//    public AddBookResponse addBook(AddBookRequest addBookRequest) {
-//        Book newBook = modelMapper.map(addBookRequest, Book.class);
-//        bookRepository.save(newBook);
-//        AddBookResponse response = new AddBookResponse();
-//        response.setMessage("Added book successfully");
-//        return response;
-//    }
+    @Autowired
+    private  BookRepository bookRepository;
 
 
     @Override
@@ -64,13 +54,13 @@ public class BookServicesImpl implements BookServices {
     @Override
     public UpdateBookResponse updateBook(UpdateBookRequest updateBookRequest) {
         Book existingBook = bookRepository.findByTitleAndAuthor(
-                        updateBookRequest.getTitle(),
-                        updateBookRequest.getAuthor())
+                        updateBookRequest.getOriginalTitle(),
+                        updateBookRequest.getOriginalAuthor())
                 .orElseThrow(() -> new BookNotFound("Book not found"));
 
+        existingBook.setTitle(updateBookRequest.getTitle());
         existingBook.setAuthor(updateBookRequest.getAuthor());
         existingBook.setDescription(updateBookRequest.getDescription());
-        existingBook.setTitle(updateBookRequest.getTitle());
 
         Book updatedBook = bookRepository.save(existingBook);
 
@@ -82,6 +72,7 @@ public class BookServicesImpl implements BookServices {
 
         return response;
     }
+
 
 
     @Override

@@ -4,7 +4,9 @@ import lombok.Data;
 
 @Data
 public class UpdateBookRequest {
+    private String originalTitle;
+    private String originalAuthor;
     private String title;
     private String author;
-    private String Description;
+    private String description;
 }

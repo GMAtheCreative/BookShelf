@@ -71,21 +71,30 @@ class BookServicesImplTest {
 
     @Test
     void updateBook() {
-        AddBookRequest bookRequest = buildBookRequest(new AddBookRequest());
-        AddBookResponse bookResponse = bookServices.addBook(bookRequest);
-        assertNotNull(bookResponse);
+        AddBookRequest bookRequest = new AddBookRequest();
+        AddBookRequest addBook = buildBookRequest(bookRequest);
+        AddBookResponse addBookResponse = bookServices.addBook(addBook);
+        assertNotNull(addBookResponse);
 
-        AddBookRequest bookRequest2 = buildBookRequest(new AddBookRequest());
-        bookRequest2.setTitle("Different Title");
-        AddBookResponse bookResponse2 = bookServices.addBook(bookRequest2);
-        assertNotNull(bookResponse2);
+        AddBookRequest bookRequest2 = new AddBookRequest();
+        AddBookRequest addBook2 = buildBookRequest2(bookRequest2);
+        AddBookResponse addBookResponse2 = bookServices.addBook(addBook2);
+        assertNotNull(addBookResponse2);
+
+//        AddBookRequest bookRequest2 = buildBookRequest(new AddBookRequest());
+//        bookRequest2.setTitle("Different Title");
+//        AddBookResponse bookResponse2 = bookServices.addBook(bookRequest2);
+//        assertNotNull(bookResponse2);
 
         UpdateBookRequest updateBookRequest = new UpdateBookRequest();
-        updateBookRequest.setTitle("updated title");
+        updateBookRequest.setOriginalTitle(bookRequest.getTitle());
+        updateBookRequest.setOriginalAuthor(bookRequest.getAuthor());
+        updateBookRequest.setTitle("New Title");
         updateBookRequest.setAuthor("Updated Author");
         updateBookRequest.setDescription("Updated Description");
         UpdateBookResponse updateBookResponse = bookServices.updateBook(updateBookRequest);
         assertNotNull(updateBookResponse);
+
 
         assertEquals("Update Successful", updateBookResponse.getMessage());
         assertEquals("Updated Author", updateBookResponse.getAuthor());
